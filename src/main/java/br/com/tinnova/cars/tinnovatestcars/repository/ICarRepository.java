@@ -11,7 +11,7 @@ import br.com.tinnova.cars.tinnovatestcars.model.Car;
 @Repository
 public interface ICarRepository extends JpaRepository<Car, Long>{
 
-    @Query(value = "Select CONCAT(brand, ' <->', COUNT(*)) as carsFilteredByBrand FROM tb_cars cars GROUP BY cars.brand", nativeQuery = true)
+    @Query(value = "Select CONCAT(brand, ' <-> ', COUNT(*)) as carsFilteredByBrand FROM tb_cars cars GROUP BY cars.brand", nativeQuery = true)
     public List<String> findCarsFilteredByBrand();
 
     @Query(value="Select CONCAT(CONCAT(LEFT(YEAR,3),0), ' <-> ', COUNT(*)) as carFilteredByDecade FROM tb_cars cars GROUP BY LEFT(year,3)", nativeQuery = true)

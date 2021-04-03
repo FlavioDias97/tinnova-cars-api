@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import br.com.tinnova.cars.tinnovatestcars.dto.response.LastCarRecordResponseDTO
 import br.com.tinnova.cars.tinnovatestcars.dto.response.NotSoldedResponseDTO;
 import br.com.tinnova.cars.tinnovatestcars.model.Car;
 import br.com.tinnova.cars.tinnovatestcars.service.ICarService;
+import br.com.tinnova.cars.tinnovatestcars.utils.validationUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -32,9 +34,9 @@ public class CarController implements Serializable{
 
     @Autowired
     ICarService service;
-
+    
     /**
-     *
+     * Author: Flávio Dias
      */
     private static final long serialVersionUID = 2247110006816565763L;
 
@@ -43,6 +45,11 @@ public class CarController implements Serializable{
     public ResponseEntity<?> create(
         @RequestBody CarRequestDTO car
     ){
+    	validationUtils validate = new validationUtils();
+    	
+    	if(validate.validateCreateRequest(car)) {
+    		return new ResponseEntity<>("Incorrect request sended", HttpStatus.BAD_REQUEST);
+    	}
 
         try{
             service.createCar(car);
@@ -58,6 +65,11 @@ public class CarController implements Serializable{
         @PathVariable Long id,
         @RequestBody CarRequestDTO car
     ){
+    	validationUtils validate = new validationUtils();
+    	if(validate.validadeUpdateRequest(id, car)) {
+    		return new ResponseEntity<>("Incorrect request sended || ID sended shoud be > 0", HttpStatus.BAD_REQUEST);
+    	}
+    	
         try{
             return service.updateCar(car, id);
         }catch(Exception e){
@@ -66,14 +78,17 @@ public class CarController implements Serializable{
 
     }
 
-    // update using query/PATH
-
     
     @DeleteMapping(value = "/{id}")
     @ApiOperation(value = "Delete any car by ID")
     public ResponseEntity<?> delete(
         @PathVariable Long id
     ){
+    	validationUtils validate = new validationUtils();
+    	if(validate.validadeIdRequest(id)) {
+    		return new ResponseEntity<>("ID sended should be > 0", HttpStatus.BAD_REQUEST);
+    	}
+    	
         try{
             return service.deleteCar(id);
         }catch(Exception e){
@@ -87,6 +102,11 @@ public class CarController implements Serializable{
     public ResponseEntity<?> getCarById(
         @PathVariable Long id
     ){
+		validationUtils validate = new validationUtils();
+		if(validate.validadeIdRequest(id)) {
+    		return new ResponseEntity<>("ID sended should be > 0", HttpStatus.BAD_REQUEST);
+    	}
+		
         try{
             return service.getCarById(id);
         }catch(Exception e){
@@ -112,24 +132,18 @@ public class CarController implements Serializable{
 	@GetMapping(value = "/notSoldedCars")
     @ApiOperation(value = "Returns all cars not solded from database")
     public ResponseEntity<NotSoldedResponseDTO> getNotSoldedCars(){
-
-       
         return new ResponseEntity<>(service.notSoldedAmount(), HttpStatus.OK);
-           
-
     }
 
     @GetMapping(value = "/carsFilteredByDecade")
     @ApiOperation(value = "Returns the amount of cars filtered by date")
     public ResponseEntity<CarsByDecadeResponseDTO> getCarsFilteredByDate(){
-
         return new ResponseEntity<>(service.filteredByDecade(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/carsRegisteredLastWeek")
     @ApiOperation(value = "Returns the amount of cars registered in last week")
     public ResponseEntity<LastCarRecordResponseDTO> getCarsFilteredByLastWeek(){
-
         return new ResponseEntity<>(service.getLastRecord(), HttpStatus.OK);
     }
     
@@ -137,7 +151,6 @@ public class CarController implements Serializable{
     @GetMapping(value = "/carsFilteredByBrand")
     @ApiOperation(value = "Returns the amount of cars filtered by brand")
     public ResponseEntity<BrandAmountResponseDTO> getCarsFilteredByBrand(){
-
         return new ResponseEntity<>(service.filteredByBrandAmount(), HttpStatus.OK);
     }
 }
