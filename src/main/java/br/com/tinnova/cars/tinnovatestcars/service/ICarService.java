@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.common.base.Optional;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import br.com.tinnova.cars.tinnovatestcars.dto.request.CarRequestDTO;
 import br.com.tinnova.cars.tinnovatestcars.dto.response.BrandAmountResponseDTO;
@@ -12,6 +13,7 @@ import br.com.tinnova.cars.tinnovatestcars.dto.response.CarsByDecadeResponseDTO;
 import br.com.tinnova.cars.tinnovatestcars.dto.response.LastCarRecordResponseDTO;
 import br.com.tinnova.cars.tinnovatestcars.dto.response.NotSoldedResponseDTO;
 import br.com.tinnova.cars.tinnovatestcars.model.Car;
+
 
 public interface ICarService {
 

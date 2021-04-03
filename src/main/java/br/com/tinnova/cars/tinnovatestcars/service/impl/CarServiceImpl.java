@@ -2,6 +2,8 @@ package br.com.tinnova.cars.tinnovatestcars.service.impl;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,12 +18,11 @@ import br.com.tinnova.cars.tinnovatestcars.repository.ICarRepository;
 import br.com.tinnova.cars.tinnovatestcars.service.ICarService;
 
 @Service
-public class CarServiceImpl<U> implements ICarService{
+public class CarServiceImpl implements ICarService{
 
     @Autowired
     ICarRepository repository;
-
-
+    
     public String createCar(CarRequestDTO car) {
         
         Car carModel = Car.builder()
@@ -85,7 +86,7 @@ public class CarServiceImpl<U> implements ICarService{
 
         return NotSoldedResponseDTO.builder()
         .amountNotSolded(
-            repository.findCountAllCarsNotSould()
+            repository.findCountAllCarsNotSould()        		
         ).build();
 
     }
