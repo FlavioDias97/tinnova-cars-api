@@ -23,7 +23,7 @@ import br.com.tinnova.cars.tinnovatestcars.dto.response.LastCarRecordResponseDTO
 import br.com.tinnova.cars.tinnovatestcars.dto.response.NotSoldedResponseDTO;
 import br.com.tinnova.cars.tinnovatestcars.model.Car;
 import br.com.tinnova.cars.tinnovatestcars.service.ICarService;
-import br.com.tinnova.cars.tinnovatestcars.utils.validationUtils;
+import br.com.tinnova.cars.tinnovatestcars.utils.ValidationUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -45,7 +45,7 @@ public class CarController implements Serializable{
     public ResponseEntity<?> create(
         @RequestBody CarRequestDTO car
     ){
-    	validationUtils validate = new validationUtils();
+    	ValidationUtil validate = new ValidationUtil();
     	
     	if(validate.validateCreateRequest(car)) {
     		return new ResponseEntity<>("Incorrect request sended", HttpStatus.BAD_REQUEST);
@@ -65,7 +65,7 @@ public class CarController implements Serializable{
         @PathVariable Long id,
         @RequestBody CarRequestDTO car
     ){
-    	validationUtils validate = new validationUtils();
+    	ValidationUtil validate = new ValidationUtil();
     	if(validate.validadeUpdateRequest(id, car)) {
     		return new ResponseEntity<>("Incorrect request sended || ID sended shoud be > 0", HttpStatus.BAD_REQUEST);
     	}
@@ -84,7 +84,7 @@ public class CarController implements Serializable{
     public ResponseEntity<?> delete(
         @PathVariable Long id
     ){
-    	validationUtils validate = new validationUtils();
+    	ValidationUtil validate = new ValidationUtil();
     	if(validate.validadeIdRequest(id)) {
     		return new ResponseEntity<>("ID sended should be > 0", HttpStatus.BAD_REQUEST);
     	}
@@ -102,7 +102,7 @@ public class CarController implements Serializable{
     public ResponseEntity<?> getCarById(
         @PathVariable Long id
     ){
-		validationUtils validate = new validationUtils();
+		ValidationUtil validate = new ValidationUtil();
 		if(validate.validadeIdRequest(id)) {
     		return new ResponseEntity<>("ID sended should be > 0", HttpStatus.BAD_REQUEST);
     	}

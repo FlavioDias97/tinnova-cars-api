@@ -24,7 +24,7 @@ import lombok.Setter;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "tb_cars")
+@Table(name = "tb_car")
 public class Car implements Serializable{
     private static final long serialVersionUID = 386204037136386676L;
 

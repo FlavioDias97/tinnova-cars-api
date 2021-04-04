@@ -2,12 +2,12 @@ package br.com.tinnova.cars.tinnovatestcars.utils;
 
 import br.com.tinnova.cars.tinnovatestcars.dto.request.CarRequestDTO;
 
-public class validationUtils {
+public class ValidationUtil {
 	
 	
 	public boolean validateCreateRequest(CarRequestDTO car) {
 		
-		if(car.getSolded().toString().isEmpty() || car.getBrand().toString().isEmpty() || car.getDescription().toString().isEmpty() || car.getModel().toString().isEmpty() || car.getYear() == 0) {
+		if(car.getBrand().isEmpty() || car.getDescription().isEmpty() || car.getModel().isEmpty() || car.getYear() == 0) {
 			return true;
 		}
 		
