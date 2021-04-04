@@ -5,9 +5,15 @@
 
 ### Como executar
 
-Tudo que será necessário para executar o projeto será java 8 e mySQL 8.0.22 instalados na maquina. Para executar basta baixar o JAR que está junto com o projeto ou realizar o build do mesmo com mvn clean install.
+Tudo que será necessário para executar o projeto será java 8 e mySQL 8.0.22 instalados na maquina. Para executar basta baixar o JAR que está junto com o projeto na pasta executal ou realizar o build do mesmo com mvn clean install.
 
 Por padrão o projeto virá configurado com username e senha de banco como root e será necessário já ter o banco (cars_database) criado na base.
+
+para executar basta utilizar o seguinte comando:
+
+```
+java -jar tinnova-test-cars-0.0.1-SNAPSHOT.jar
+```
 
 ### Questões
 
