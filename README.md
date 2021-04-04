@@ -15,6 +15,8 @@ para executar basta utilizar o seguinte comando:
 java -jar tinnova-test-cars-0.0.1-SNAPSHOT.jar
 ```
 
+O teste poderá ser realizado diretamente pelo swagger através do endereço: http://localhost:8080/test-car-tinnova/swagger-ui.html# ou via curl como nos exemplos abaixo:
+
 ### Questões
 
 ##Cadastrar novo veículo:
